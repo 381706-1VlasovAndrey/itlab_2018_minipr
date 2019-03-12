@@ -51,14 +51,14 @@ public:
 	  tbb::empty_task& c = *new(allocate_continuation()) tbb::empty_task;
 	  TBB_QuickSort &t1 = *new(c.allocate_child()) TBB_QuickSort(a, j);
 	  c.set_ref_count(c.ref_count() + 1);
-	  c.spawn(t1);
+	  c.spawn_and_wait_for_all(t1);
 	}
 	if (n > i)
 	{
 	  tbb::empty_task& c = *new(allocate_continuation()) tbb::empty_task;
 	  TBB_QuickSort &t2 = *new(c.allocate_child()) TBB_QuickSort(a + i, n - i);
 	  c.set_ref_count(c.ref_count() + 1);
-	  c.spawn(t2);
+	  c.spawn_and_wait_for_all(t2);
 	}
 	return 0;
   }
